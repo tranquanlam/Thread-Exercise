@@ -7,8 +7,8 @@ import Utils.StringUtils;
 
 public class MessageRepository {
 	private final int MAX = 1000;
-	private final int DELAY = 100;
-	private ArrayList<Message> messages;
+	private final int DELAY = 500;
+	public ArrayList<Message> messages;
 	private Thread threadCreateMessage;
 
 	public MessageRepository() {
@@ -18,12 +18,14 @@ public class MessageRepository {
 			@Override
 			public void run() {
 				while (true) {
-					if (messages.size() < MAX) {
+					if (messages.size() < MAX)
+					{
 						Message message = new Message();
 						message.setId(new Random().nextInt(MAX));
 						message.setMessage(StringUtils.getRandomString());
 						message.setStatus(new Random().nextBoolean());
 						messages.add(message);
+					
 					}
 					try {
 						Thread.sleep(DELAY);
@@ -38,11 +40,10 @@ public class MessageRepository {
 
 	public Message getMessage() {
 		if (messages.size() != 0) {
-			System.out.println(messages.size()+" messages size");
+     //	System.out.println(messages.size()+" messages size");
 			Message message = messages.remove(0);
 			return message;
 		}
 		return null;
 	}
-
 }
